@@ -77,15 +77,13 @@ public class Excercise4 implements ServletContextListener, ServletContextAttribu
      */
     public void sessionDestroyed(HttpSessionEvent se)  {
     	Logger.getAnonymousLogger().info("Session Destroyed: "+se.getSession().getId());
-         // TODO Auto-generated method stub
     }
 
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent sce)  {
-    	
-         // TODO Auto-generated method stub
+    	Logger.getAnonymousLogger().info("Servlet Context Destroyed");
     }
 
 	/**
