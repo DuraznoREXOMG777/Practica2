@@ -1,5 +1,7 @@
 package listeners;
 
+import java.util.logging.Logger;
+
 import javax.servlet.ServletContextAttributeEvent;
 import javax.servlet.ServletContextAttributeListener;
 import javax.servlet.ServletContextEvent;
@@ -22,6 +24,7 @@ public class Excercise4 implements ServletContextListener, ServletContextAttribu
     /**
      * Default constructor. 
      */
+	
     public Excercise4() {
         // TODO Auto-generated constructor stub
     }
@@ -29,77 +32,59 @@ public class Excercise4 implements ServletContextListener, ServletContextAttribu
 	/**
      * @see HttpSessionListener#sessionCreated(HttpSessionEvent)
      */
-    public void sessionCreated(HttpSessionEvent se)  { 
-         // TODO Auto-generated method stub
-    }
-
-	/**
-     * @see ServletContextAttributeListener#attributeRemoved(ServletContextAttributeEvent)
-     */
-    public void attributeRemoved(ServletContextAttributeEvent event)  { 
-         // TODO Auto-generated method stub
+    public void sessionCreated(HttpSessionEvent se)  {
+    	Logger.getAnonymousLogger().info("Session Created: "+se.getSession().getId());
     }
 
 	/**
      * @see ServletRequestAttributeListener#attributeAdded(ServletRequestAttributeEvent)
      */
     public void attributeAdded(ServletRequestAttributeEvent srae)  { 
-         // TODO Auto-generated method stub
-    }
-
-	/**
-     * @see HttpSessionAttributeListener#attributeReplaced(HttpSessionBindingEvent)
-     */
-    public void attributeReplaced(HttpSessionBindingEvent event)  { 
-         // TODO Auto-generated method stub
+    	Logger.getAnonymousLogger().info("ServletContext Attribute Added: "+srae.getName()+", "+srae.getValue());
     }
 
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-         // TODO Auto-generated method stub
+    	Logger.getAnonymousLogger().info("ServletContext Initialized");
     }
 
 	/**
      * @see ServletContextAttributeListener#attributeAdded(ServletContextAttributeEvent)
      */
-    public void attributeAdded(ServletContextAttributeEvent event)  { 
-         // TODO Auto-generated method stub
+    public void attributeAdded(ServletContextAttributeEvent event)  {
+    	Logger.getAnonymousLogger().info("ServletContext Attribute Added: "+event.getName()+", "+event.getValue());
     }
 
 	/**
      * @see ServletRequestListener#requestDestroyed(ServletRequestEvent)
      */
     public void requestDestroyed(ServletRequestEvent sre)  { 
-         // TODO Auto-generated method stub
+    	Logger.getAnonymousLogger().info("Servlet Request destroyed. Remote IP = "+sre.getServletRequest().getRemoteAddr());
     }
 
-	/**
-     * @see ServletRequestAttributeListener#attributeRemoved(ServletRequestAttributeEvent)
-     */
-    public void attributeRemoved(ServletRequestAttributeEvent srae)  { 
-         // TODO Auto-generated method stub
-    }
 
 	/**
      * @see ServletRequestListener#requestInitialized(ServletRequestEvent)
      */
-    public void requestInitialized(ServletRequestEvent sre)  { 
-         // TODO Auto-generated method stub
+    public void requestInitialized(ServletRequestEvent sre)  {
+    	Logger.getAnonymousLogger().info("Servlet Request Initialized. Remote IP = "+sre.getServletRequest().getRemoteAddr());
     }
 
 	/**
      * @see HttpSessionListener#sessionDestroyed(HttpSessionEvent)
      */
-    public void sessionDestroyed(HttpSessionEvent se)  { 
+    public void sessionDestroyed(HttpSessionEvent se)  {
+    	Logger.getAnonymousLogger().info("Session Destroyed: "+se.getSession().getId());
          // TODO Auto-generated method stub
     }
 
 	/**
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
-    public void contextDestroyed(ServletContextEvent sce)  { 
+    public void contextDestroyed(ServletContextEvent sce)  {
+    	
          // TODO Auto-generated method stub
     }
 
@@ -130,5 +115,23 @@ public class Excercise4 implements ServletContextListener, ServletContextAttribu
     public void attributeReplaced(ServletContextAttributeEvent event)  { 
          // TODO Auto-generated method stub
     }
+
+	@Override
+	public void attributeRemoved(ServletRequestAttributeEvent srae) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attributeReplaced(HttpSessionBindingEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void attributeRemoved(ServletContextAttributeEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

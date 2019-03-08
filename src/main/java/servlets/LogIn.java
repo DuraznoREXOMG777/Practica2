@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +30,8 @@ public class LogIn extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user = null;
+		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		
@@ -38,39 +39,49 @@ public class LogIn extends HttpServlet {
 		 * If you're trying to get to login page you'll check the session if user != null
 		 * you'll get forwarded to the main site.
 		*/
-		String message = (String) request.getAttribute("message");
+		HttpSession session = request.getSession(false);
+		if(session != null) {
+			user = (User) session.getAttribute(ObjectSessionNames.USER);
+		}
+		if(user != null) {
+			response.sendRedirect("LogOn");
+		}else {
+			String message = (String) request.getAttribute("message");
+			
+			if(message == null) message = "";
+			out.println(
+					"<html>\n" + 
+					"<head>\n" + 
+					"<title></title>\n" + 
+					"</head>\n" + 
+					"\n" + 
+					"\n" + 
+					"<body>\n" + 
+					"	<form action=\"LogOn\" method=post>\n" + 
+					"		<div align=\"center\">\n" + 
+					"			<h2>Login</h2>\n" + 
+					"			<font \n" + 
+					"			System.out.println(\"Sabrosano\");color=\"red\"> "+
+					"					"+message+"\n" + 
+					"			</font> <br /> <br />\n" + 
+					"		</div>\n" + 
+					"		<div class=\"container\" align=\"center\">\n" + 
+					"			<div align=\"center\">\n" + 
+					"				<label for=\"uname\"><b>Username</b></label> <input type=\"text\"\n" + 
+					"					placeholder=\"Enter Username\" name=\"uname\" required>\n" + 
+					"			</div>\n" + 
+					"\n" + 
+					"			<div align=\"center\">\n" + 
+					"				<label for=\"psw\"><b>Password</b></label> <input type=\"password\"\n" + 
+					"					placeholder=\"Enter Password\" name=\"psw\" required>\n" + 
+					"			</div>\n" + 
+					"			<button type=\"submit\">Log In</button>\n" + 
+					"		</div>\n" + 
+					"	</form>\n" + 
+					"</body>\n" + 
+					"</html>");
+		}
 		
-		if(message == null) message = "";
-		out.println(
-				"<html>\n" + 
-				"<head>\n" + 
-				"<title></title>\n" + 
-				"</head>\n" + 
-				"\n" + 
-				"\n" + 
-				"<body>\n" + 
-				"	<form action=\"LogOn\" method=post>\n" + 
-				"		<div align=\"center\">\n" + 
-				"			<h2>Login</h2>\n" + 
-				"			<font color=\"red\"> "+
-				"					"+message+"\n" + 
-				"			</font> <br /> <br />\n" + 
-				"		</div>\n" + 
-				"		<div class=\"container\" align=\"center\">\n" + 
-				"			<div align=\"center\">\n" + 
-				"				<label for=\"uname\"><b>Username</b></label> <input type=\"text\"\n" + 
-				"					placeholder=\"Enter Username\" name=\"uname\" required>\n" + 
-				"			</div>\n" + 
-				"\n" + 
-				"			<div align=\"center\">\n" + 
-				"				<label for=\"psw\"><b>Password</b></label> <input type=\"password\"\n" + 
-				"					placeholder=\"Enter Password\" name=\"psw\" required>\n" + 
-				"			</div>\n" + 
-				"			<button type=\"submit\">Log In</button>\n" + 
-				"		</div>\n" + 
-				"	</form>\n" + 
-				"</body>\n" + 
-				"</html>");
 	}
 
 	/**
